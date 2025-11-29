@@ -1,20 +1,23 @@
 const express = require('express');
 const cors = require('cors');
-const nhanVienRoutes = require('./routes/nhanVienRoutes');
-const donHangRoutes = require('./routes/donHangRoutes');
-const blogRoutes = require('./routes/blogRoutes');
 require('./configs/db'); // Kết nối MongoDB
 
 const app = express();
+const studentRoutes = require('./routes/studentRoutes');
+const projectRoutes = require('./routes/projectRoutes');
+const orderRoutes = require('./routes/orderRoutes');
+const employeeRoutes = require('./routes/employeeRoutes');
+const errorMiddleware = require('./middleware/errorMiddleware');
 
 // Middleware
 app.use(cors());
 app.use(express.json());
 
-// Routes
-app.use('/api', nhanVienRoutes);
-app.use('/api', donHangRoutes);
-app.use('/api', blogRoutes);
+app.use('/api', studentRoutes);
+app.use('/api', projectRoutes);
+app.use('/api', orderRoutes);
+app.use('/api', employeeRoutes);
+app.use(errorMiddleware);
 
 // Kiểm tra kết nối MongoDB trước khi khởi động server
 const mongoose = require('./configs/db');
