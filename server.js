@@ -10,8 +10,12 @@ const employeeRoutes = require('./routes/employeeRoutes');
 const errorMiddleware = require('./middleware/errorMiddleware');
 
 // Middleware
-app.use(cors());
-app.use(express.json());
+app.use(cors({
+    origin: 'http://localhost:5000',
+    methods: ['GET', 'POST', 'PUT', 'DELETE'],
+    allowedHeaders: ['Content-Type', 'Authorization'],
+    credentials: true
+})); app.use(express.json());
 
 app.use('/api', studentRoutes);
 app.use('/api', projectRoutes);
@@ -19,7 +23,6 @@ app.use('/api', orderRoutes);
 app.use('/api', employeeRoutes);
 app.use(errorMiddleware);
 
-// Kiểm tra kết nối MongoDB trước khi khởi động server
 const mongoose = require('./configs/db');
 mongoose.connection.once('open', () => {
     console.log('✅ MongoDB đã sẵn sàng!');

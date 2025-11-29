@@ -5,7 +5,7 @@ const projectSchema = new mongoose.Schema({
     name: { type: String, required: true },
     description: { type: String, required: true },
     status: { type: String, enum: ['ongoing', 'completed', 'canceled'], required: true },
-    members: [{ type: String }] // Array of member names or IDs
+    members: [{ type: String }]
 }, { timestamps: true });
 
 module.exports = mongoose.model('Project', projectSchema);
